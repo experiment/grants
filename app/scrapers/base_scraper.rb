@@ -1,0 +1,3 @@
+class BaseScraper
+
+end

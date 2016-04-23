@@ -12,5 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
+
+$(function() {
+  $('.header-search input').on('focus', function(e) {
+    this.setSelectionRange(0, this.value.length);
+  });
+});

@@ -7,9 +7,9 @@ class CreateOpportunities < ActiveRecord::Migration
       t.datetime :due_at
       t.string :location
       t.integer :number_of_recipients
-      t.integer :min_amount
-      t.integer :max_amount
-      t.integer :total_amount
+      t.integer :min_amount, limit: 8
+      t.integer :max_amount, limit: 8
+      t.integer :total_amount, limit: 8
       t.text :description
       t.string :url
       t.string :foreign_key, null: false

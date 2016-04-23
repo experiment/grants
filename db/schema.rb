@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423211037) do
+ActiveRecord::Schema.define(version: 20160423233541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,27 +27,29 @@ ActiveRecord::Schema.define(version: 20160423211037) do
   add_index "funders", ["url"], name: "index_funders_on_url", using: :btree
 
   create_table "opportunities", force: :cascade do |t|
-    t.string   "name",                   null: false
-    t.integer  "funder_id",              null: false
+    t.string   "name",                             null: false
+    t.integer  "funder_id",                        null: false
     t.datetime "posted_at"
     t.datetime "due_at"
     t.string   "location"
     t.integer  "number_of_recipients"
-    t.integer  "min_amount"
-    t.integer  "max_amount"
-    t.integer  "total_amount"
+    t.integer  "min_amount",             limit: 8
+    t.integer  "max_amount",             limit: 8
+    t.integer  "total_amount",           limit: 8
     t.text     "description"
     t.string   "url"
-    t.string   "foreign_key",            null: false
+    t.string   "foreign_key",                      null: false
     t.string   "contact_name"
     t.string   "contact_email"
     t.string   "eligibility_categories"
-    t.integer  "first_source_id",        null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "first_source_id",                  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.tsvector "search_vector"
   end
 
   add_index "opportunities", ["funder_id", "foreign_key"], name: "index_opportunities_on_funder_id_and_foreign_key", unique: true, using: :btree
+  add_index "opportunities", ["search_vector"], name: "opportunies_search_idx", using: :gin
 
   create_table "sources", force: :cascade do |t|
     t.string   "name",       null: false

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.6'
 gem 'pg'
+gem 'pg_search'
 
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'

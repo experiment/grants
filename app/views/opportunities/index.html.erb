@@ -1,0 +1,25 @@
+<div class='container'>
+  <div class='row'>
+    <div class='table-responsive'>
+      <table class='table table-striped'>
+        <tr>
+          <th>Funder</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Amount</th>
+        </tr>
+
+        <% @opportunities.each do |opportunity| %>
+          <tr>
+            <td><%= opportunity.funder.name %></td>
+            <td><%= opportunity.name %></td>
+            <td><%= truncate opportunity.description, length: 250 %></td>
+            <td><%= opportunity_range(opportunity) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <%= paginate @opportunities, :theme => 'twitter-bootstrap-3' %>
+  </div>
+</div>
