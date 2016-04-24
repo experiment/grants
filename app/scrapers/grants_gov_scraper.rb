@@ -35,17 +35,15 @@ class GrantsGovScraper < BaseScraper
   end
 
   def grant_xml
-    # file = Tempfile.new(['grants', '.zip'])
-    # tmp_directory = File.dirname(file)
-    #
-    # system "curl -s #{Shellwords.escape download_url} > #{Shellwords.escape file.path}"
-    # system "unzip #{Shellwords.escape file.path} -d #{Shellwords.escape tmp_directory}"
-    # puts "Zipfile in #{tmp_directory}, named #{xml_file_name}"
-    # xml = Nokogiri::XML(File.read(File.join(tmp_directory, xml_file_name)))
+    file = Tempfile.new(['grants', '.zip'])
+    tmp_directory = File.dirname(file)
 
-    Nokogiri::XML(File.read('/var/folders/kc/_mt5mw0j5ksfg846hgllc5lr0000gn/T/GrantsDBExtract20160422.xml'))
-  # ensure
-  #   file.unlink if file
+    system "curl -s #{Shellwords.escape download_url} > #{Shellwords.escape file.path}"
+    system "unzip -u #{Shellwords.escape file.path} -d #{Shellwords.escape tmp_directory}"
+    puts "Zipfile in #{tmp_directory}, named #{xml_file_name}"
+    Nokogiri::XML(File.read(File.join(tmp_directory, xml_file_name)))
+  ensure
+    file.unlink if file
   end
 
   def download_url
